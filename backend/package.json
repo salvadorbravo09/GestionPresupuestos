@@ -1,0 +1,11 @@
+{
+  "name": "gestionpresupuestos_backend",
+  "version": "1.0.0",
+  "description": "Proyecto GestionPresupuestos React Typescript y Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Salvador Bravo",
+  "license": "ISC"
+}
