@@ -6,7 +6,7 @@ import { db } from "./config/db";
 async function connectDB() {
   try {
     await db.authenticate();
-    db.sync();
+    db.sync(); // Sincroniza todos los cambios que se vallan realizando en los modelos.
     console.log(colors.blue.bold("Conexion exitosa a la base de datos"));
   } catch (error) {
     console.log(colors.red.bold("Fallo la conexion a la base de datos"));
