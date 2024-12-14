@@ -8,11 +8,19 @@ import {
   validateBudgetInput,
 } from "../middleware/budget";
 import { ExpenseController } from "../controllers/ExpenseController";
+import {
+  validateExpenseExists,
+  validateExpenseId,
+  validateExpenseInput,
+} from "../middleware/expense";
 
 const router = Router();
 
 router.param("budgetId", validateBudgetId);
 router.param("budgetId", validateBudgetExists);
+
+router.param("expenseId", validateExpenseId);
+router.param("expenseId", validateExpenseExists);
 
 router.get("/", BudgetController.getAll);
 
@@ -35,10 +43,22 @@ router.put(
 router.delete("/:budgetId", BudgetController.deleteById);
 
 /** Routes for expenses */
-router.get("/:budgetId/expenses", ExpenseController.getAll);
-router.post("/budgetId/expenses", ExpenseController.create);
-router.get("/budgetId/expenses/:expenseId", ExpenseController.getById);
-router.put("/budgetId/expenses/:expenseId", ExpenseController.updateById);
-router.delete("/budgetId/expenses/:expenseId", ExpenseController.deleteById);
+router.post(
+  "/:budgetId/expenses",
+  validateExpenseInput,
+  handleInputErrors,
+  ExpenseController.create
+);
+
+router.get("/:budgetId/expenses/:expenseId", ExpenseController.getById);
+
+router.put(
+  "/:budgetId/expenses/:expenseId",
+  validateExpenseInput,
+  handleInputErrors,
+  ExpenseController.updateById
+);
+
+router.delete("/:budgetId/expenses/:expenseId", ExpenseController.deleteById);
 
 export default router;
