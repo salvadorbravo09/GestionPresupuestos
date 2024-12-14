@@ -2,58 +2,36 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import { BudgetController } from "../controllers/BudgetController";
 import { handleInputErrors } from "../middleware/validation";
-import { validateBudgetExists, validateBudgetId } from "../middleware/budget";
+import {
+  validateBudgetExists,
+  validateBudgetId,
+  validateBudgetInput,
+} from "../middleware/budget";
 
 const router = Router();
+
+router.param("budgetId", validateBudgetId);
+
+router.param("budgetId", validateBudgetExists);
 
 router.get("/", BudgetController.getAll);
 
 router.post(
   "/",
-  body("name")
-    .notEmpty()
-    .withMessage("El nombre del presupuesto no puede ir vacio"),
-  body("amount")
-    .notEmpty()
-    .withMessage("La cantidad del presupuesto no puede ir vacio")
-    .isNumeric()
-    .withMessage("Cantidad no valida")
-    .custom((value) => value > 0)
-    .withMessage("El presupuesto debe ser mayor a 0"),
+  validateBudgetInput,
   handleInputErrors,
   BudgetController.create
 );
 
-router.get(
-  "/:id",
-  validateBudgetId,
-  validateBudgetExists,
-  BudgetController.getById
-);
+router.get("/:budgetId", BudgetController.getById);
 
 router.put(
-  "/:id",
-  validateBudgetId,
-  validateBudgetExists,
-  body("name")
-    .notEmpty()
-    .withMessage("El nombre del presupuesto no puede ir vacio"),
-  body("amount")
-    .notEmpty()
-    .withMessage("La cantidad del presupuesto no puede ir vacio")
-    .isNumeric()
-    .withMessage("Cantidad no valida")
-    .custom((value) => value > 0)
-    .withMessage("El presupuesto debe ser mayor a 0"),
+  "/:budgetId",
+  validateBudgetInput,
   handleInputErrors,
   BudgetController.updateById
 );
 
-router.delete(
-  "/:id",
-  validateBudgetId,
-  validateBudgetExists,
-  BudgetController.deleteById
-);
+router.delete("/:budgetId", BudgetController.deleteById);
 
 export default router;
