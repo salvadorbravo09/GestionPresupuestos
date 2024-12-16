@@ -7,8 +7,10 @@ export class BudgetController {
     try {
       const budgets = await Budget.findAll({
         order: [["createdAt", "DESC"]],
+        where: {
+          userId: req.user.id,
+        },
       });
-      //TODO: filtrar por el usuario autenticado
       res.json(budgets);
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
