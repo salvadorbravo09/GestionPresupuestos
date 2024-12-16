@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { checkPassword, hashPassword } from "../utils/auth";
 import { generateToken } from "../utils/token";
@@ -131,26 +130,6 @@ export class AuthController {
   };
 
   static user = async (req: Request, res: Response) => {
-    const bearer = req.headers.authorization;
-    if (!bearer) {
-      const error = new Error("No autorizado");
-      res.status(401).json({ error: error.message });
-      return;
-    }
-
-    const [, token] = bearer.split(" ");
-
-    if (!token) {
-      const error = new Error("Token no valido");
-      res.status(401).json({ error: error.message });
-      return;
-    }
-
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      res.json(decoded)
-    } catch (error) {
-      res.status(500).json({ error: "Token no valido" });
-    }
+    res.json(req.user);
   };
 }
