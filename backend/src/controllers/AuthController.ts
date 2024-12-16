@@ -132,4 +132,22 @@ export class AuthController {
   static user = async (req: Request, res: Response) => {
     res.json(req.user);
   };
+
+  static updateCurrentUserPassword = async (req: Request, res: Response) => {
+    const { current_password, password } = req.body;
+    const { id } = req.user;
+
+    const user = await User.findByPk(id);
+    const isPasswordCorrect = await checkPassword(
+      current_password,
+      user.password
+    );
+    if (!isPasswordCorrect) {
+      const error = new Error("El password actual es incorrecto");
+      res.status(401).json({ error: error.message });
+      return;
+    }
+
+    res.json(user);
+  };
 }
