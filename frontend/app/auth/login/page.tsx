@@ -18,12 +18,23 @@ export default function LoginPage() {
         </p>
         <LoginForm />
 
-        <nav className="mt-10 flex flex-col space-y-4 bg-gray-800 p-4 rounded-lg shadow-lg">
+        <nav className="mt-5 flex flex-col">
           <Link
             href="/auth/register"
             className="text-center text-green-400 hover:text-green-300 transition duration-200"
           >
-            ¿No tienes una cuenta? Regístrate
+            ¿No tienes una cuenta?{" "}
+            <span className="text-white">Regístrate</span>
+          </Link>
+        </nav>
+
+        <nav className="mt-2 flex flex-col">
+          <Link
+            href="/auth/forgot-password"
+            className="text-center text-green-400 hover:text-green-300 transition duration-200"
+          >
+            ¿Olvidaste tu contraseña?{" "}
+            <span className="text-white">Restablecer</span>
           </Link>
         </nav>
       </div>
