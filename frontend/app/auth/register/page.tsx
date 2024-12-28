@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import RegisterForm from "@/components/auth/RegisterForm";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Gestion de Presupuestos - Crear Cuenta",
@@ -16,6 +17,15 @@ export default function RegisterPage() {
           <span className="text-green-400">cuenta</span>
         </p>
         <RegisterForm />
+
+        <nav className="mt-10 flex flex-col space-y-4 bg-gray-800 p-4 rounded-lg shadow-lg">
+          <Link
+            href="/auth/login"
+            className="text-center text-green-400 hover:text-green-300 transition duration-200"
+          >
+            ¿Ya tienes una cuenta? Iniciar sesión
+          </Link>
+        </nav>
       </div>
     </div>
   );
