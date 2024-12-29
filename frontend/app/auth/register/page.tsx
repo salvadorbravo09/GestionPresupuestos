@@ -18,7 +18,7 @@ export default function RegisterPage() {
         </p>
         <RegisterForm />
 
-        <nav className="mt-10 flex flex-col">
+        <nav className="mt-5 flex flex-col">
           <Link
             href="/auth/login"
             className="text-center text-green-400 hover:text-green-300 transition duration-200"
